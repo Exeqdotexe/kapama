@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product (Admin)</title>
+</head>
+<body>
+    <%- include('partials/header', {title: 'Add Product (Admin)'}) %>
+<h1>Add Product (Admin)</h1>
+<form action="/add-product-admin" method="post">
+  <label for="product_name">Product Name:</label>
+  <input type="text" name="product_name" required />
+  <button type="submit">Add Product</button>
+</form>
+<%- include('partials/footer') %>
+
+</body>
+</html>

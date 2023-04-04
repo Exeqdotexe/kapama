@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Product</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Update Product</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+</head>
+<body>
+  <!-- products.ejs -->
+<% products.forEach((product) => { %>
+  <div class="product">
+    <h2><%= product.name %></h2>
+    <p><%= product.description %></p>
+    <a href="/update-product/<%= product.id %>">Edit</a>
+  </div>
+<% }) %>
+
+</body>
+</html>
+
+</body>
+</html>
+

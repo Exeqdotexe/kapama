@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+
+</head>
+<body>
+ <%- include('partials/header', {title: 'Home'}) %>
+<h1>Welcome, <%= user.username %></h1>
+<% if (user.is_admin) { %>
+  <a href="/add-product-admin">Add Product (Admin)</a>
+  <a href="/assign-stages">Assign Stages</a>
+<% } %>
+<a href="/my-products">My Products</a>
+<%- include('partials/footer') %>
+
+</body>
+</html>

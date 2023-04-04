@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Product Movement</title>
+  <link rel="stylesheet" href="/styles.css">
+
+</head>
+<body>
+<!-- index.ejs -->
+<% products.forEach((product) => { %>
+  <div class="product">
+    <h2><%= product.product_name %></h2>
+    <p>Stage: <%= product.stage %></p>
+    <a href="/update-quantity/<%= product.product_id %>">Update Quantity</a>
+  </div>
+<% }) %>
+
+
+  <h1>Add Product Movement</h1>
+  <form action="/add-product" method="post">
+    <label for="product_id">Product ID:</label>
+    <input type="number" id="product_id" name="product_id" required>
+    <br>
+    <label for="product_quantity">Product Quantity:</label>
+    <input type="number" id="product_quantity" name="product_quantity" required>
+    <br>
+    <button type="submit">Submit</button>
+  </form>
+  <a href="/">Back to Dashboard</a>
+</body>
+</html>

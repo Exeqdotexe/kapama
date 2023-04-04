@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Products</title>
+</head>
+<body>
+ <%- include('partials/header', {title: 'My Products'}) %>
+<h1>My Products</h1>
+<ul>
+  <% products.forEach(product => { %>
+    <li>
+      <%= product.product_name %> - Stage: <%= product.stage %>
+      <a href="/update-product/<%= product.id %>">Update Quantity</a>
+    </li>
+  <% }) %>
+</ul>
+<%- include('partials/footer') %>
+
+</body>
+</html>

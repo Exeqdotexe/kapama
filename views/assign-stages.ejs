@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assign Stages</title>
+</head>
+<body>
+   <%- include('partials/header', {title: 'Assign Stages'}) %>
+<h1>Assign Stages</h1>
+<form action="/assign-stages" method="post">
+  <label for="product_id">Product:</label>
+  <select name="product_id" required>
+    <% products.forEach(product => { %>
+      <option value="<%= product.id %>"><%= product.name %></option>
+    <% }) %>
+  </select>
+  <label for="user_id">User:</label>
+  <select name="user_id" required>
+    <% users.forEach(user => { %>
+      <option value="<%= user.id %>"><%= user.username %></option>
+    <% }) %>
+  </select>
+  <label for="stage">Stage:</label>
+  <input type="number" name="stage" min="1" required />
+  <button type="submit">Assign Stage</button>
+</form>
+<%- include('partials/footer') %>
+
+</body>
+</html>
