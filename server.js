@@ -11,12 +11,40 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
   database: "kapamajs",
 });
+
+router.get('/update-product/:id', ensureAuthenticated, (req, res) => {
+  const productId = req.params.id;
+  const userId = req.user.id;
+  const query = 'SELECT * FROM products WHERE id = ? AND user_id = ?';
+  
+  db.query(query, [productId, userId], (err, result) => {
+    if (err) throw err;
+    res.render('update-product', { product: result[0] });
+  });
+});
+
+router.post('/update-product', ensureAuthenticated, (req, res) => {
+  const { id, name, quantity } = req.body;
+  const userId = req.user.id;
+  const query = 'UPDATE products SET name = ?, quantity = ? WHERE id = ? AND user_id = ?';
+  
+  db.query(query, [name, quantity, id, userId], (err, result) => {
+    if (err) throw err;
+    req.flash('success_msg', 'Product updated successfully');
+    res.redirect('/products');
+  });
+});
+
 
 connection.connect();
 
@@ -127,12 +155,18 @@ app.post('/update-product/:id', ensureAuthenticated, (req, res) => {
   });
 });
 
-app.get('/update-quantity/:id', ensureAuthenticated, (req, res) => {
-  const productId = req.params.id;
-
-  // Burada ürün ID'si ile ilgili işlemleri gerçekleştirin
-
-  res.render('update_quantity', { product: /* Ürün nesnesi */ });
+app.get('/update-product/:id', ensureAuthenticated, (req, res) => {
+  let productId = req.params.id;
+  let query = "SELECT * FROM `products` WHERE `id` = ?";
+  
+  connection.query(query, [productId], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Database error.");
+    }
+    
+    res.render('update_quantity', { product: result[0] });
+  });
 });
 
 
@@ -235,10 +269,20 @@ app.get("/my-products", ensureAuthenticated, (req, res) => {
   );
 });
 
-app.get("/update-product/:id", ensureAuthenticated, (req, res) => {
-  const productId = req.params.id;
-  res.render("update-product", { user: req.user, productId: productId });
+app.get('/update-product/:id', ensureAuthenticated, (req, res) => {
+  let productId = req.params.id;
+  let query = "SELECT * FROM `products` WHERE `id` = ?";
+  
+  connection.query(query, [productId], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Database error.");
+    }
+    
+    res.render('update_quantity', { product: result[0] });
+  });
 });
+
 
 app.post("/update-product/:id", ensureAuthenticated, (req, res) => {
   const productId = req.params.id;
